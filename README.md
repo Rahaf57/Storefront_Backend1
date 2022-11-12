@@ -52,7 +52,7 @@ TOKEN_SECRET=hi-friend
 
 ### Running Ports
 
-After start up, the server will start on port `3000` and the database on port `5432`
+The server will start on port `3000` and the database on port `5432`
 
 ## Getting Started
 
