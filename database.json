@@ -1,0 +1,19 @@
+{
+
+  
+    "dev": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "storedev",
+      "user": "rahaf",
+      "password": "rahaf@123"
+    },
+    "test": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "storetest",
+      "user": "rahaf",
+      "password": "rahaf@123"
+    }
+  }
+  
