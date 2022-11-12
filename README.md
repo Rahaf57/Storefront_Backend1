@@ -1,31 +1,3 @@
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://doryapi.herokuapp.com">
-    <img src="public/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Dory </h3>
-
-  <p align="center">
-  API for Dory App
-    <br />
-    <h4 align="center">Give a star ⭐ if you like it ❤️  </h4>
-    <br/>
-    <p align="center"> 
-    :link: <a href="https://doryapi.herokuapp.com">  Live </a>
-    &#8226; 
-   :bug: <a href="https://github.com/MohanedAshraf/Dory-API/issues">Report Bug or Request Feature</a>
-    &#8226; 
-    :sparkles:<a href="https://documenter.getpostman.com/view/8191338/SzS7R6zN?version=latest&fbclid=IwAR1QoQGOU_3JOGAFbKMh5PIEQ_jHG31_3OwaUPII3Vni1-oBdVjp8FSwso8">Postman Doc</a></p>
-
-  </p>
-</p>
 
 <!-- TABLE OF CONTENTS -->
 
