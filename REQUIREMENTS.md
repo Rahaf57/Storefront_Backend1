@@ -70,6 +70,7 @@ These are the notes from a meeting with the frontend developer that describe wha
   - route: /api/Order/:id [DELETE]
 - ### getUserOrder [token required]
   - route: /api/Order/userOrder/:id [Get]
+
   
 ## Data Shapes
 
@@ -93,8 +94,12 @@ CREATE TABLE Products(
 CREATE TABLE Orders(
     Order_id SERIAL PRIMARY KEY,
     user_id  bigint REFERENCES Users(id),
-    product_id  bigint REFERENCES Products(id),
-    quantity INT NOT NULL,
     status_order VARCHAR(50) DEFAULT 'active'
+)
 
+### Order_products TABLE
+CREATE TABLE order_products (
+ order_id   INTEGER NOT NULL REFERENCES Orders (Order_id),
+ product_id  bigint REFERENCES Products(id),
+ quantity INT NOT NULL
 )

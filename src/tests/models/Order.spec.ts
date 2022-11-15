@@ -16,8 +16,6 @@ const store = new OrderModel();
 export type test_order ={
   
   user_id: number ;
-  product_id: number;
-  quantity : number;
   status_order: string;
   
 }
@@ -49,7 +47,7 @@ describe('Test Order Model', async () => {
     });
 
     it('should have a update method', () => {
-        expect(store.update).toBeDefined();
+        expect(store.update_Order).toBeDefined();
     });
 
     it('should have a delete method', () => {
@@ -63,18 +61,14 @@ describe('Test Order Model', async () => {
         product = await createTesProduct();
         
         const result : Orders = await new OrderModel().create({
-                user_id: user.id || 0 ,
-                product_id : product.id || 0,
-                quantity: 236,
-                status_order: 'active',
-                
-              });
+          user_id: user.id || 0,
+          status_order: 'active',
+          order_id: 0
+        });
            
-            expect(result).toEqual({  
-                order_id: result.order_id,
+            expect(result).toEqual({
+                order_id: 1,
                 user_id: result.user_id,
-                product_id :result.product_id,
-                quantity: 236,
                 status_order: 'active'
             });
         });

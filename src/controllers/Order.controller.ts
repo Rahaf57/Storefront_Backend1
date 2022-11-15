@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { Orders , OrderModel } from '../models/Order.model';
+import { Orders , OrderModel, Order_Products } from '../models/Order.model';
 
-const Orders=new OrderModel();
+const Orders =new OrderModel();
 
 export const UserOrder = async (req: Request, res: Response) => {
   try {
@@ -28,10 +28,9 @@ export const index = async (req: Request, res: Response) => {
    try{
   
     const orderModel : Orders = {
-      quantity : req.body.quantity,
+      user_id: req.body.user_id,
       status_order: req.body.status_order,
-      user_id : req.body.user_id,
-      product_id :req.body.product_id,
+      order_id: 0
     };
   
     
@@ -48,6 +47,28 @@ export const index = async (req: Request, res: Response) => {
    }
    
   };
+
+   export const createProductToOrder = async (req: Request, res: Response) => {
+    try {
+      
+
+       const order_id = Number(req.params.order_id);
+       const product_id= Number (req.params.product_id);
+       const quantity= Number( req.params.quantity )
+     
+      if (!order_id || product_id || quantity ) {
+        return res
+          .status(400)
+          .send('Error, missing or malformed parameters. id required');
+      }
+      const order = await Orders.getProductOrder(order_id || product_id||quantity);
+      res.send(order);
+    } catch (error) {
+      res.status(401).json(error);
+    }
+    }
+
+
   export const show = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
@@ -62,6 +83,8 @@ export const index = async (req: Request, res: Response) => {
       res.status(401).json(error);
     }
   };
+
+  
  
   
   //Update
@@ -70,10 +93,10 @@ export const index = async (req: Request, res: Response) => {
      
       req.body.id=req.params.id
     
-      const Users = await Orders.update(req.body);
+      const Update = await Orders.update_Order(req.body);
     res.json({
       status:'SUCCESS',
-      data : Users,
+      data : Update,
       massage: 'User Updated Successfully'
     
     });
@@ -82,6 +105,26 @@ export const index = async (req: Request, res: Response) => {
       next(err);
      }
     };
+
+    export const update_Order_Product = async (req: Request, res: Response , next: NextFunction) => {
+      try{
+       
+        req.body.order_id=req.params.Order_id;
+        req.body.product_id=req.params.product_id;
+        req.body.quantity=req.params.quantity
+      
+        const UPDATE = await Orders.update_Order_Product(req.body);
+      res.json({
+        status:'SUCCESS',
+        data : UPDATE,
+        massage: 'User Updated Successfully'
+      
+      });
+       
+       } catch(err){
+        next(err);
+       }
+      };
     //Delete
   
   export const deleteOrder = async (req: Request, res: Response , next: NextFunction) => {
