@@ -56,7 +56,7 @@ export const index = async (req: Request, res: Response) => {
        const product_id= Number (req.params.product_id);
        const quantity= Number( req.params.quantity )
      
-      if (!order_id || product_id || quantity ) {
+      if (!order_id || !product_id || !quantity ) {
         return res
           .status(400)
           .send('Error, missing or malformed parameters. id required');
