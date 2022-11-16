@@ -3,6 +3,7 @@ import { Orders , OrderModel, Order_Products } from '../models/Order.model';
 
 const Orders =new OrderModel();
 
+// UserOrder
 export const UserOrder = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
@@ -17,6 +18,8 @@ export const UserOrder = async (req: Request, res: Response) => {
     res.status(401).json(error);
   }
   }
+
+  // index
 export const index = async (req: Request, res: Response) => {
     const results = await Orders.index();
     res.send(results);
@@ -24,51 +27,44 @@ export const index = async (req: Request, res: Response) => {
   
   //create
   
-  export const create = async (req: Request, res: Response , next: NextFunction) => {
-   try{
-  
-    const orderModel : Orders = {
+  export const create = async (req: Request, res: Response , next: NextFunction) :Promise <void>=> {
+    const order : Orders ={
       user_id: req.body.user_id,
       status_order: req.body.status_order,
-      order_id: 0
-    };
-  
-    
-    const Users = await Orders.create(orderModel);
-  res.json({
-    status:'SUCCESS',
-    data : Users,
-    massage: 'User created Successfully'
-  
-  });
-   
-   } catch(err){
-    next(err);
-   }
-   
-  };
-
-   export const createProductToOrder = async (req: Request, res: Response) => {
+      order_id : req.body.order_id
+    }
     try {
-      
-
-       const order_id = Number(req.params.order_id);
-       const product_id= Number (req.params.product_id);
-       const quantity= Number( req.params.quantity )
-     
-      if (!order_id || product_id || quantity ) {
-        return res
-          .status(400)
-          .send('Error, missing or malformed parameters. id required');
-      }
-      const order = await Orders.getProductOrder(order_id || product_id||quantity);
-      res.send(order);
+        const Order = await Orders.create(order)
+        res.json(Order)
     } catch (error) {
-      res.status(401).json(error);
+     
+      
+        res.status(400)
+        res.json(error)
     }
-    }
+  }
 
+  //createProductToOrder
+export const createProductToOrder = async(req: Request,res: Response): Promise <void> => {
 
+  const OrderProduct: Order_Products = {
+      quantity: req.body.quantity,
+      order_id: req.body.order_id,
+      product_id: req.body.productid
+  }
+  try {
+      const order = await Orders.AddProductToOrder(OrderProduct)
+      res.json(order)
+
+  } catch (error) {
+    console.log(error);
+    
+      res.status(400)
+      res.json(error)
+  }
+}
+
+// show
   export const show = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
@@ -85,14 +81,12 @@ export const index = async (req: Request, res: Response) => {
   };
 
   
- 
-  
   //Update
   export const updateOrder = async (req: Request, res: Response , next: NextFunction) => {
     try{
      
-      req.body.id=req.params.id
-    
+      req.body.order_id=req.params.id
+      
       const Update = await Orders.update_Order(req.body);
     res.json({
       status:'SUCCESS',
@@ -104,7 +98,10 @@ export const index = async (req: Request, res: Response) => {
      } catch(err){
       next(err);
      }
+
     };
+
+    //update_Order_Product
 
     export const update_Order_Product = async (req: Request, res: Response , next: NextFunction) => {
       try{
@@ -142,3 +139,18 @@ export const index = async (req: Request, res: Response) => {
      }
     }
   
+
+    export const GetOrderProducts = async (req: Request, res: Response) => {
+      try {
+        const id = Number(req.params.id);
+        if (!id) {
+          return res
+            .status(400)
+            .send('Error, missing or malformed parameters. id required');
+        }
+        const order = await Orders.GetOrderProducts(id);
+        res.send(order);
+      } catch (error) {
+        res.status(401).json(error);
+      }
+      }

@@ -14,7 +14,7 @@ const request = supertest(app);
 const store = new OrderModel();
 
 export type test_order ={
-  
+  order_id : number;
   user_id: number ;
   status_order: string;
   
@@ -67,7 +67,7 @@ describe('Test Order Model', async () => {
         });
            
             expect(result).toEqual({
-                order_id: 1,
+                order_id: 2,
                 user_id: result.user_id,
                 status_order: 'active'
             });

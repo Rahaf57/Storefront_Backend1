@@ -64,13 +64,18 @@ These are the notes from a meeting with the frontend developer that describe wha
   - route: /api/Order/  [Get]
 - ### Show 
   - route: /api/Order/:id  [GET]
-- ### Update 
-  - route: /api/Order/:id   [PATCH]
+- ### Update Orders
+  - route: /api/Order/:id   [PUT]
+- ### Update Order Product
+  - route: /api/Order/product/:id   [PUT]
 - ### Delete 
   - route: /api/Order/:id [DELETE]
 - ### getUserOrder [token required]
   - route: /api/Order/userOrder/:id [Get]
-
+- ### create Product To Order
+  - route: /api/Order/OrderProduct/ [POST]
+- ### Get Order Products
+  - route: /api/Order/OrderProduct/:id [Get]
   
 ## Data Shapes
 
@@ -95,11 +100,11 @@ CREATE TABLE Orders(
     Order_id SERIAL PRIMARY KEY,
     user_id  bigint REFERENCES Users(id),
     status_order VARCHAR(50) DEFAULT 'active'
-)
+);
 
 ### Order_products TABLE
 CREATE TABLE order_products (
  order_id   INTEGER NOT NULL REFERENCES Orders (Order_id),
  product_id  bigint REFERENCES Products(id),
  quantity INT NOT NULL
-)
+);
